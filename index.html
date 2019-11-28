@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navsheet</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Handlee&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <style>
+        html, body {
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #instructions {
+            position: absolute;
+            left: 50vw;
+            transform: rotate(4deg);
+            animation: floating 1s ease-in-out 0s infinite alternate;
+            font-family: "Handlee", cursive;
+        }
+        @keyframes floating {
+            from { transform: translateY(40px) rotate(-4deg); }
+            to   { transform: translateY(50px) rotate(-4deg); }
+        }
+        #fork-me {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Site usado para gerar código de bookmarklet: https://chriszarate.github.io/bookmarkleter/ -->
+    <a id="bookmarklet" class="btn btn-outline-primary" href="javascript:(function(){function%20a(a){function%20b(a){const%20b=a.getBoundingClientRect();return%20d((b.left+b.right)/2,(b.top+b.bottom)/2)}const%20c=i.indexOf(a),e=b(a),g=f(i,(a,c,d)=%3E{const%20f=b(c),g=f.diff(e);return%20a[d]=g,a},Array(i.length));return%20g}function%20b(a,b){const%20c={up:d(0,-1),down:d(0,1),left:d(-1,0),right:d(1,0)},g=a=%3Eb.map(b=%3E({displacement:b,distance:b.norm(),angle:c[a].angle(b)})),h=f(Object.keys(c),(a,b)=%3E(a[b]=g(b),a),{}),j=b=%3E{let%20c,d,f=1/0,g=1/0;for(c=0;c%3Cb.length;c++){if(a===i[c])continue;const%20h=b[c];h.angle%3Ce(45)%26%26h.distance%3C=f%26%26h.angle%3C=g%26%26!i[c].disabled%26%26(f=h.distance,g=h.angle,d=c)}return%20a===i[d]%3Fnull:i[d]};return%20f(Object.keys(c),(a,b)=%3E(a[b]=j(h[b]),a),{})}function%20c(a,b){const%20c={ArrowUp:%22up%22,ArrowDown:%22down%22,ArrowLeft:%22left%22,ArrowRight:%22right%22};a.addEventListener(%22keydown%22,function(a){switch(a.key){case%22ArrowUp%22:case%22ArrowDown%22:case%22ArrowLeft%22:case%22ArrowRight%22:{const%20d=c[a.key],e=b[d];e%26%26(e.focus(),a.preventDefault())}}})}function%20d(a,b){return%20new%20h(a,b)}function%20e(a){return%20a/180*Math.PI}function%20f(a,b,c){let%20d=c;for(let%20e=0;e%3Ca.length;e++)b(d,a[e],e,a);return%20d}function%20g(a){const%20b=a.length;for(let%20c=0;c%3CMath.floor(b/2);c++)[a[c],a[b-1-c]]=[a[b-1-c],a[c]];return%20a}class%20h{constructor(a,b){this.x=a,this.y=b}diff(a){return%20this.add(a.mult(-1))}add(a){return%20d(this.x+a.x,this.y+a.y)}mult(a){return%20a%20instanceof%20h%3Fd(this.x*a.x,this.y*a.y):d(this.x*a,this.y*a)}dot(a){return%20this.x*a.x+this.y*a.y}norm(){return%20Math.sqrt(this.x**2+this.y**2)}normalized(){return%20this.mult(1/this.norm())}angle(a){return%20Math.acos(this.normalized().dot(a.normalized()))}}const%20i=Array.from(document.querySelectorAll(%22input%22)),j=i.map(b=%3Ea(b,i.filter(a=%3Eb!==a))),k=i.map((a,c)=%3Eb(a,j[c]));i.forEach(a=%3Ec(a,k[i.indexOf(a)])),function(a,b=%224s%22){const%20c=function(){const%20a=document.createElement(%22style%22);return%20a.appendChild(document.createTextNode(%22%22)),document.head.appendChild(a),a.sheet}();g([`.navsheet-message%20{
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--width:%2020em;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20font-size:%2016px;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20padding:%200.5em;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20overflow:%20hidden;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20position:%20fixed;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left:%20calc(50vw%20-%20var(--width)%20/%202);
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20top:%205vh;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width:%20var(--width);
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20background-color:%20white;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20border:%201px%20solid%20silver;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20box-shadow:%202px%202px%202px%20%230006;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20border-radius:%201em;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform:%20scale(0.3);
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20opacity:%200;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transition:%20all%20200ms%20cubic-bezier(0.3,%201.3,%200.9,%200.8);
+%20%20%20%20%20%20%20%20%20%20%20%20}`,`.navsheet-message.navsheet-shown%20{
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20opacity:%20.85;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform:%20scale(1);
+%20%20%20%20%20%20%20%20%20%20%20%20}`,`.navsheet-message%20.navsheet-progress%20{
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20position:%20absolute;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20bottom:%200;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left:%200;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20right:%200;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height:%204px;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20background-color:%20rebeccapurple;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform:%20scaleX(1);
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform-origin:%200%200;
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transition:%20transform%20${b}%20linear;
+%20%20%20%20%20%20%20%20%20%20%20%20}`,`.navsheet-message.navsheet-shown%20.navsheet-progress%20{
+%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform:%20scaleX(0);
+%20%20%20%20%20%20%20%20%20%20%20%20}`]).forEach(a=%3Ec.insertRule(a));const%20d=document.createElement(%22aside%22);d.classList.add(%22navsheet-message%22),d.innerHTML=`
+%20%20%20%20%20%20%20%20%20%20%20%20${a}
+%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class=%22navsheet-progress%22%3E%3C/div%3E
+%20%20%20%20%20%20%20%20`,document.body.appendChild(d);const%20f=d.querySelector(%22.navsheet-progress%22);setTimeout(()=%3Ed.classList.add(%22navsheet-shown%22),0);f.addEventListener(%22transitionend%22,a=%3E{a.target!==f||(d.classList.remove(%22navsheet-shown%22),d.addEventListener(%22transitionend%22,()=%3EsetTimeout(()=%3E-1!==Array.from(document.body.children).indexOf(d)%26%26document.body.removeChild(d)),500,{once:!0}))},{once:!0})}(%22Navsheet%20foi%20aplicado!%22)})();" style="font-size: 2em;">
+        <svg class="bi bi-arrows-fullscreen" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4 11.5a.5.5 0 01.5.5v3.5H8a.5.5 0 010 1H4a.5.5 0 01-.5-.5v-4a.5.5 0 01.5-.5z"
+                clip-rule="evenodd"></path>
+            <path fill-rule="evenodd"
+                d="M8.854 11.11a.5.5 0 010 .708l-4.5 4.5a.5.5 0 11-.708-.707l4.5-4.5a.5.5 0 01.708 0zm7.464-7.464a.5.5 0 010 .708l-4.5 4.5a.5.5 0 11-.707-.708l4.5-4.5a.5.5 0 01.707 0z"
+                clip-rule="evenodd"></path>
+            <path fill-rule="evenodd"
+                d="M11.5 4a.5.5 0 01.5-.5h4a.5.5 0 01.5.5v4a.5.5 0 01-1 0V4.5H12a.5.5 0 01-.5-.5zm4.5 7.5a.5.5 0 00-.5.5v3.5H12a.5.5 0 000 1h4a.5.5 0 00.5-.5v-4a.5.5 0 00-.5-.5z"
+                clip-rule="evenodd"></path>
+            <path fill-rule="evenodd"
+                d="M11.146 11.11a.5.5 0 000 .708l4.5 4.5a.5.5 0 00.708-.707l-4.5-4.5a.5.5 0 00-.708 0zM3.682 3.646a.5.5 0 000 .708l4.5 4.5a.5.5 0 10.707-.708l-4.5-4.5a.5.5 0 00-.707 0z"
+                clip-rule="evenodd"></path>
+            <path fill-rule="evenodd" d="M8.5 4a.5.5 0 00-.5-.5H4a.5.5 0 00-.5.5v4a.5.5 0 001 0V4.5H8a.5.5 0 00.5-.5z"
+                clip-rule="evenodd"></path>
+        </svg>
+        Navsheet
+    </a>
+    <p id="instructions">⬆️ Me arraste para a barra de favoritos</p>
+    <a href="https://github.com/fegemo/navsheet" id="fork-me"><img width="149" height="149"
+            src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+            class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+</body>
+</html>
