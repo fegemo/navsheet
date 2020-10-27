@@ -51,8 +51,11 @@
 
     // 4. coloca um evento de teclado para cada input que faz com que as setas sejam navegáveis 
     inputs.forEach(el => attachKeyboardCallback(el, neighbors[inputs.indexOf(el)]));
+    
+    // 5. coloca um evento de teclado para cada input que lê o conteúdo da primeira célula, se o input estiver em uma tabela
+    inputs.forEach(el => attachFocusCallback(el, neighbors[inputs.indexOf(el)]));
 
-    // 5. mostra aviso dizendo que executou
+    // 6. mostra aviso dizendo que executou
     showMessage('Navsheet foi aplicado!');
     
     // funções auxiliares
@@ -202,6 +205,53 @@
                     break;
             }
         }
+    }
+
+    function attachFocusCallback(el) {
+        if (!attachFocusCallback.initialized) {
+            // inicia a leitura de texto por voz do navegador
+            try {
+                const synth = window.speechSynthesis;
+                const voices = synth.getVoices();
+                let voice = voices[0];
+                for (let v of voices) {
+                    if (v.lang.toLocaleLowerCase().startsWith == 'pt') {
+                        voice = v;
+                    }
+                }
+    
+    
+                attachFocusCallback.readOutLoud = text => {
+                    const utter = new SpeechSynthesisUtterance(text);
+                    synth.speak(utter);
+                };
+                attachFocusCallback.supports = true;
+                attachFocusCallback.cancel = () => synth.cancel();
+                attachFocusCallback.lastTextSpoken = null;
+            } catch (error) {
+                console.error(error);
+                attachFocusCallback.supports = false;
+            }
+        }
+        attachFocusCallback.initialized = true;
+        if (!attachFocusCallback.supports) {
+            return;
+        }
+
+        const elementInsideTR = el.closest('tr') != null;
+        const thirdColumnOfRow = elementInsideTR ? el.closest('tr').querySelector('td:nth-of-type(3)') : null;
+
+        if (!elementInsideTR || !thirdColumnOfRow) {
+            return;
+        }
+
+        el.addEventListener('focus', () => {
+            attachFocusCallback.cancel();
+            if (attachFocusCallback.lastTextSpoken !== thirdColumnOfRow.innerText) {
+                attachFocusCallback.readOutLoud(thirdColumnOfRow.innerText);
+                attachFocusCallback.lastTextSpoken = thirdColumnOfRow.innerText;
+            }
+        });
     }
 
     function vec2(x, y) {
